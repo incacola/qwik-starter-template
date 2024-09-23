@@ -1,13 +1,14 @@
-import { component$ } from "@builder.io/qwik";
+import { component$, useTask$  } from "@builder.io/qwik";
 import {
   QwikCityProvider,
   RouterOutlet,
   ServiceWorkerRegister,
 } from "@builder.io/qwik-city";
 import { RouterHead } from "./components/router-head/router-head";
-import { isDev } from "@builder.io/qwik/build";
-
+import { isDev, isServer } from "@builder.io/qwik/build";
+import Lenis from 'lenis'
 import "./global.css";
+import { TailwindIndicator } from "./components/taillwind-indicator";
 
 export default component$(() => {
   /**
@@ -16,6 +17,23 @@ export default component$(() => {
    *
    * Don't remove the `<head>` and `<body>` elements.
    */
+  useTask$(() => {
+    if (isServer) {
+      return; // Server guard
+    }
+    const lenis = new Lenis()
+
+    lenis.on('scroll', (e) => {
+      console.log(e)
+    })
+    
+    function raf(time: any) {
+      lenis.raf(time)
+      requestAnimationFrame(raf)
+    }
+    
+    requestAnimationFrame(raf)
+  });
 
   return (
     <QwikCityProvider>
@@ -32,6 +50,7 @@ export default component$(() => {
       <body lang="en">
         <RouterOutlet />
         {!isDev && <ServiceWorkerRegister />}
+        {isDev &&  <TailwindIndicator />}
       </body>
     </QwikCityProvider>
   );

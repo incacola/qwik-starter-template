@@ -4,12 +4,15 @@ import type { DocumentHead } from "@builder.io/qwik-city";
 export default component$(() => {
   return (
     <>
-      <h1>Hi 👋</h1>
-      <div>
-        Can't wait to see what you build with qwik!
-        <br />
-        Happy coding.
-      </div>
+      <section class="flex items-center justify-center h-screen w-full bg-[#9B352B]">
+        <h1 class="text-3xl font-bold text-[#F8EFCB]">Hello world!</h1>
+      </section>
+      <section class="flex items-center justify-center h-screen w-full bg-[#FFB81C]">
+        <h1 class="text-3xl font-bold text-[#fdfdfd]">With Tailwind CSS</h1>
+      </section>
+      <section class="flex items-center justify-center h-screen w-full bg-[#00205B]">
+        <h1 class="text-3xl font-bold text-[#fdfdfd]">Lenis Scroll & GSAP</h1>
+      </section>
     </>
   );
 });
